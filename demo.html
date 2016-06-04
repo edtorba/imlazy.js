@@ -24,5 +24,10 @@
   <div class="space"></div>
   <div class="js-imlazy" style="width: 300px; height: 300px; background-size: cover;" data-imlazy='{ "100": "images/100x100.png", "600": "images/600x600.png" }'></div>
   <script src="dist/imlazy.pkgd.js"></script>
+  <script>
+  window.addEventListener('load', function() {
+    new Imlazy('.js-imlazy');
+  }, false);
+  </script>
 </body>
 </html>

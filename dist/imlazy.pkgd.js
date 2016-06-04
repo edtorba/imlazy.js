@@ -144,7 +144,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       return Imlazy;
     }();
 
-    var test = new Imlazy('.js-imlazy');
+    // Replace/Create the global namespace
+
+
+    window.Imlazy = Imlazy;
   }, { "./lib/_classList": 2 }], 2: [function (require, module, exports) {
     /**
      * Class helper functions.

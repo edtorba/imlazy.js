@@ -97,4 +97,5 @@ class Imlazy {
   }
 }
 
-var test = new Imlazy('.js-imlazy');
+// Replace/Create the global namespace
+window.Imlazy = Imlazy;
