@@ -16,22 +16,4 @@ describe('_classList', function() {
       assert.typeOf(_classList.add, 'function');
     });
   });
-
-  describe('remove', function () {
-    it('must be a function', function () {
-      assert.typeOf(_classList.remove, 'function');
-    });
-  });
-
-  describe('toggle', function () {
-    it('must be a function', function () {
-      assert.typeOf(_classList.toggle, 'function');
-    });
-  });
-
-  describe('has', function () {
-    it('must be a function', function () {
-      assert.typeOf(_classList.has, 'function');
-    });
-  });
 });
