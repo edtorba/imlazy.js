@@ -38,6 +38,13 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var babel = require('gulp-babel');
+var fs = require('fs');
+var insert = require('gulp-insert');
+
+function getLicense() {
+  return fs.readFileSync('copyright.md');
+}
+
 // dependency: babel-preset-es2015
 
 gulp.task('clean:js', function() {
@@ -59,6 +66,7 @@ gulp.task( 'browserify-babel', [ 'clean:js' ], function() {
   .pipe( babel({
     presets: ['es2015']
   }))
+  .pipe( insert.prepend( getLicense() ) )
   .pipe( gulp.dest( 'dist' ) );
 });
 
