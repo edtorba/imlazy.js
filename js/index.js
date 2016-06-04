@@ -1,10 +1,6 @@
 const _classList = require('./lib/_classList');
 
 class Imlazy {
-  /**
-   * TODO: unit tests
-   */
-
   constructor(selector) {
     // Get all images
     this.images = document.querySelectorAll(selector);
@@ -31,6 +27,10 @@ class Imlazy {
     }
   }
 
+  /**
+   * Extracts `imlazy` data attribute, analyzes it and sets image to an element.
+   * @param  {[obj]} image [javascript dom object].
+   */
   loadImage(image) {
     let imlazyData = image.getAttribute('data-imlazy'),
     windowWidth = window.innerWidth,

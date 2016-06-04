@@ -29,10 +29,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _classList = require('./lib/_classList');
 
     var Imlazy = function () {
-      /**
-       * TODO: unit tests
-       */
-
       function Imlazy(selector) {
         _classCallCheck(this, Imlazy);
 
@@ -64,6 +60,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           }
         }
+
+        /**
+         * Extracts `imlazy` data attribute, analyzes it and sets image to an element.
+         * @param  {[obj]} image [javascript dom object].
+         */
+
       }, {
         key: "loadImage",
         value: function loadImage(image) {
