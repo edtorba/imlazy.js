@@ -1,4 +1,7 @@
 ## Imlazy.js
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Latest Version](https://img.shields.io/github/release/edtorba/imlazy.js.svg?style=flat-square)](https://github.com/edtorba/imlazy.js/releases)
+
 `imlazy.js` is a lightweight vanilla js plugin to lazy load responsive images.
 
 ## Usage
