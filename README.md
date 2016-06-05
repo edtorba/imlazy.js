@@ -7,7 +7,7 @@
 ## Usage
 imlazy.js has no dependencies, so all you'll have to do is include `.js` file and you'll be ready to go.
 
-1. Download `imlazy.pkgd.js`  or `imlazy.pkgd.min.js`.
+1. Download `imlazy.pkgd.js`  or `imlazy.pkgd.min.js` or install via npm `npm install imlazy.js`.
 2. Add imlazy `.js` file to your site.
 `<script src="/path/to/imlazy.pkgd.min.js"></script>`
 3. Alter your `img` or ***any other*** tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, for example `"600":`. Add specific class to your tags, this way you'll be able to easily control which images will be lazyloaded.
