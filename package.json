@@ -2,7 +2,7 @@
   "name": "imlazy.js",
   "version": "1.0.0",
   "description": "A lightweight vanilla js plugin to lazy load images.",
-  "main": "index.html",
+  "main": "dist/imlazy.pkgd.min.js",
   "scripts": {
     "test": "mocha"
   },
