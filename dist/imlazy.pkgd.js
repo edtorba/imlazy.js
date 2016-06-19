@@ -27,22 +27,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   }return s;
 })({ 1: [function (require, module, exports) {
     var _classList = require('./lib/_classList');
+    var _utils = require('./lib/_utils');
 
     var Imlazy = function () {
-      function Imlazy(selector) {
+      function Imlazy() {
         _classCallCheck(this, Imlazy);
 
         // Get all images
-        this.images = document.querySelectorAll(selector);
+        this.images = document.querySelectorAll('[data-imlazy]');
 
         // Load images
         this.processImages();
 
+        // Bind `this` to processImages and store it.
+        this.processImages = this.processImages.bind(this);
+
+        // Make this.processImages function debounce invoking.
+        this.processImages = _utils.debounce(this.processImages, 20);
+
         // Add event listener to load up corrent image on window resize.
-        window.addEventListener('resize', this.processImages.bind(this), false);
+        window.addEventListener('resize', this.processImages, false);
 
         // Add event listener to load up images on window scroll.
-        window.addEventListener('scroll', this.processImages.bind(this), false);
+        window.addEventListener('scroll', this.processImages, false);
       }
 
       /**
@@ -150,7 +157,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     window.Imlazy = Imlazy;
-  }, { "./lib/_classList": 2 }], 2: [function (require, module, exports) {
+  }, { "./lib/_classList": 2, "./lib/_utils": 3 }], 2: [function (require, module, exports) {
     /**
      * Class helper functions.
      */
@@ -166,6 +173,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         } else {
           elem.className += ' ' + className;
         }
+      }
+    };
+  }, {}], 3: [function (require, module, exports) {
+    /**
+     * Utility functions
+     */
+    module.exports = {
+      /**
+       * Creates a debounced function that delays invoking func until after wait
+       * milliseconds have elapsed since the last time the debounced function was
+       * invoked.
+       * @param  {[func]} func [Function to debounce.]
+       * @param  {[int]} wait [To to wait.]
+       * @param  {[bool]} immediate [Immediately invode function.]
+       * @return {[func]} [Debounced function.]
+       */
+      debounce: function debounce(func, wait, immediate) {
+        var timeout;
+
+        return function () {
+          var context = this,
+              args = arguments;
+          var callNow = immediate && !timeout;
+
+          clearTimeout(timeout);
+
+          timeout = setTimeout(function () {
+            timeout = null;
+
+            if (!immediate) {
+              func.apply(context, args);
+            }
+          }, wait);
+
+          if (callNow) func.apply(context, args);
+        };
       }
     };
   }, {}] }, {}, [1]);

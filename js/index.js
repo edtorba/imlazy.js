@@ -1,18 +1,25 @@
 const _classList = require('./lib/_classList');
+const _utils = require('./lib/_utils');
 
 class Imlazy {
-  constructor(selector) {
+  constructor() {
     // Get all images
-    this.images = document.querySelectorAll(selector);
+    this.images = document.querySelectorAll('[data-imlazy]');
 
     // Load images
     this.processImages();
 
+    // Bind `this` to processImages and store it.
+    this.processImages = this.processImages.bind(this);
+
+    // Make this.processImages function debounce invoking.
+    this.processImages = _utils.debounce(this.processImages, 20);
+
     // Add event listener to load up corrent image on window resize.
-    window.addEventListener('resize', this.processImages.bind(this), false);
+    window.addEventListener('resize', this.processImages, false);
 
     // Add event listener to load up images on window scroll.
-    window.addEventListener('scroll', this.processImages.bind(this), false);
+    window.addEventListener('scroll', this.processImages, false);
   }
 
   /**
@@ -38,7 +45,7 @@ class Imlazy {
 
     // Extracting `imlazy` data from data attribute.
     let breakpoints = this.parseJson(imlazyData);
-
+    
     // Check if extraction process was successfull.
     if (breakpoints !== undefined) {
 

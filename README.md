@@ -2,7 +2,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Latest Version](https://img.shields.io/github/release/edtorba/imlazy.js.svg?style=flat-square)](https://github.com/edtorba/imlazy.js/releases)
 
-`imlazy.js` is a lightweight vanilla js plugin to lazy load responsive images.
+`imlazy.js` is a lightweight vanilla JS plugin to lazy load responsive images.
 
 ## Usage
 imlazy.js has no dependencies, so all you'll have to do is include `.js` file and you'll be ready to go.
@@ -12,21 +12,21 @@ imlazy.js has no dependencies, so all you'll have to do is include `.js` file an
 `<script src="/path/to/imlazy.pkgd.min.js"></script>`
 3. Alter your `img` or ***any other*** tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, for example `"600":`. Add specific class to your tags, this way you'll be able to easily control which images will be lazyloaded.
 4. ***Optional:*** Add a placeholder image in the `src` attribute - to display something while the original image loads.
-5. Initialise imlazy. The `Imlazy()` constructor accepts one argument: the class selector.
+5. Initialise imlazy.
 ```js
 window.addEventListener('load', function() {
-  new Imlazy('.js-imlazy');
+  new Imlazy();
 }, false);
 ```
 
 ## Examples
 `img` tag example:
 ```html
-<img src="placeholder.jpg" class="js-imlazy" data-imlazy='{ "0": "images/100x100.png", "600": "images/600x600.png", "900": "images/900x900.png" }' />
+<img src="placeholder.jpg" data-imlazy='{ "0": "images/100x100.png", "600": "images/600x600.png", "900": "images/900x900.png" }' />
 ```
 `div` tag example:
 ```html
-<div class="js-imlazy" data-imlazy='{ "0": "images/100x100.png", "600": "images/600x600.png" }'></div>
+<div data-imlazy='{ "0": "images/100x100.png", "600": "images/600x600.png" }'></div>
 ```
 
 If you would like to add a polyfill for users without enabled JavaScript, simply include the original image inside a `<noscript>` tag:
