@@ -1,6 +1,6 @@
 /*!
- * Imlazy.js PACKAGED v1.0.0
- * A lightweight vanilla js plugin to lazy load images.
+ * Imlazy.js PACKAGED v1.1.0
+ * A lightweight vanilla JS plugin to lazy load images.
  *
  * Licensed MIT License (MIT)
  *
@@ -27,23 +27,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   }return s;
 })({ 1: [function (require, module, exports) {
     var _classList = require('./lib/_classList');
-    var _utils = require('./lib/_utils');
+    var _debounce = require('./lib/_debounce');
 
     var Imlazy = function () {
       function Imlazy() {
         _classCallCheck(this, Imlazy);
 
-        // Get all images
+        // Get all images.
         this.images = document.querySelectorAll('[data-imlazy]');
 
-        // Load images
+        // Load images.
         this.processImages();
 
         // Bind `this` to processImages and store it.
         this.processImages = this.processImages.bind(this);
 
         // Make this.processImages function debounce invoking.
-        this.processImages = _utils.debounce(this.processImages, 20);
+        this.processImages = _debounce(this.processImages, 20);
 
         // Add event listener to load up corrent image on window resize.
         window.addEventListener('resize', this.processImages, false);
@@ -53,7 +53,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       /**
-       * Runs through `this.images` - passing individual elem object to `loadImage`.
+       * Iterate through `this.images`, passing individual object to `loadImage`.
        */
 
 
@@ -70,45 +70,50 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         /**
          * Extracts `imlazy` data attribute, analyzes it and sets image to an element.
-         * @param  {[obj]} image [javascript dom object].
+         * @param  {[obj]} image [Node obj.]
          */
 
       }, {
         key: "loadImage",
-        value: function loadImage(image) {
-          var imlazyData = image.getAttribute('data-imlazy'),
+        value: function loadImage(node) {
+          var jsonData = node.getAttribute('data-imlazy'),
               windowWidth = window.innerWidth,
               nearest = null;
 
-          // Extracting `imlazy` data from data attribute.
-          var breakpoints = this.parseJson(imlazyData);
+          // Extract `imlazy` data from data attribute.
+          var breakpoints = this.parseJson(jsonData);
 
           // Check if extraction process was successfull.
           if (breakpoints !== undefined) {
 
             // Find nearest breakpoint.
             for (var key in breakpoints) {
-              // As breakpoint was passed as string, we have to parse it to integer.
+              // Breakpoint was passed as string, parse it to integer.
               var breakpoint = parseInt(key, 10);
 
               if (breakpoint <= windowWidth) nearest = key;
             }
 
-            // Set image to elem object.
-            if (this.isImage(image)) {
-              image.setAttribute('src', breakpoints[nearest]);
-            } else {
-              image.style.backgroundImage = 'url(' + breakpoints[nearest] + ')';
-            }
+            // Set image.
+            if (this.isImage(node)) {
+              node.setAttribute('src', breakpoints[nearest]);
 
-            // Add `is-loaded`
-            _classList.add(image, 'is-loaded');
+              node.onload = function (evt) {
+                // Place `is-loaded` class on node.
+                _classList.add(node, 'is-loaded');
+              };
+            } else {
+              node.style.backgroundImage = 'url(' + breakpoints[nearest] + ')';
+
+              // Place `is-loaded` class on node.
+              _classList.add(node, 'is-loaded');
+            }
           }
         }
 
         /**
          * Check if element is in view.
-         * @param  {[obj]}  elem [javascript dom object].
+         * @param  {[obj]}  elem [Node obj.]
          * @return {Boolean}
          */
 
@@ -136,7 +141,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /**
          * Parse JSON, if failes throw error messege to console.
          * @param  {[string]} string [JSON string].
-         * @return {[obj/arr]}       [Returns object or array].
+         * @return {[obj/arr]} [Returns object or array].
          */
 
       }, {
@@ -157,7 +162,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
     window.Imlazy = Imlazy;
-  }, { "./lib/_classList": 2, "./lib/_utils": 3 }], 2: [function (require, module, exports) {
+  }, { "./lib/_classList": 2, "./lib/_debounce": 3 }], 2: [function (require, module, exports) {
     /**
      * Class helper functions.
      */
@@ -177,38 +182,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     };
   }, {}], 3: [function (require, module, exports) {
     /**
-     * Utility functions
+     * Debounce
+     *
+     * Creates a debounced function that delays invoking func until after wait
+     * milliseconds have elapsed since the last time the debounced function was
+     * invoked.
+     *
+     * @param  {[func]} func [Function to debounce.]
+     * @param  {[int]} wait [To to wait.]
+     * @param  {[bool]} immediate [Immediately invode function.]
+     * @return {[func]} [Debounced function.]
      */
-    module.exports = {
-      /**
-       * Creates a debounced function that delays invoking func until after wait
-       * milliseconds have elapsed since the last time the debounced function was
-       * invoked.
-       * @param  {[func]} func [Function to debounce.]
-       * @param  {[int]} wait [To to wait.]
-       * @param  {[bool]} immediate [Immediately invode function.]
-       * @return {[func]} [Debounced function.]
-       */
-      debounce: function debounce(func, wait, immediate) {
-        var timeout;
+    function debounce(func, wait, immediate) {
+      var timeout;
 
-        return function () {
-          var context = this,
-              args = arguments;
-          var callNow = immediate && !timeout;
+      return function () {
+        var context = this,
+            args = arguments;
+        var callNow = immediate && !timeout;
 
-          clearTimeout(timeout);
+        clearTimeout(timeout);
 
-          timeout = setTimeout(function () {
-            timeout = null;
+        timeout = setTimeout(function () {
+          timeout = null;
 
-            if (!immediate) {
-              func.apply(context, args);
-            }
-          }, wait);
+          if (!immediate) {
+            func.apply(context, args);
+          }
+        }, wait);
 
-          if (callNow) func.apply(context, args);
-        };
-      }
-    };
+        if (callNow) func.apply(context, args);
+      };
+    }
+
+    module.exports = debounce;
   }, {}] }, {}, [1]);

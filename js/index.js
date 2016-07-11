@@ -1,19 +1,19 @@
 const _classList = require('./lib/_classList');
-const _utils = require('./lib/_utils');
+const _debounce = require('./lib/_debounce');
 
 class Imlazy {
   constructor() {
-    // Get all images
+    // Get all images.
     this.images = document.querySelectorAll('[data-imlazy]');
 
-    // Load images
+    // Load images.
     this.processImages();
 
     // Bind `this` to processImages and store it.
     this.processImages = this.processImages.bind(this);
 
     // Make this.processImages function debounce invoking.
-    this.processImages = _utils.debounce(this.processImages, 20);
+    this.processImages = _debounce(this.processImages, 20);
 
     // Add event listener to load up corrent image on window resize.
     window.addEventListener('resize', this.processImages, false);
@@ -23,7 +23,7 @@ class Imlazy {
   }
 
   /**
-   * Runs through `this.images` - passing individual elem object to `loadImage`.
+   * Iterate through `this.images`, passing individual object to `loadImage`.
    */
   processImages() {
     for(var i = 0, t = this.images.length; i < t; i++) {
@@ -36,42 +36,47 @@ class Imlazy {
 
   /**
    * Extracts `imlazy` data attribute, analyzes it and sets image to an element.
-   * @param  {[obj]} image [javascript dom object].
+   * @param  {[obj]} image [Node obj.]
    */
-  loadImage(image) {
-    let imlazyData = image.getAttribute('data-imlazy'),
+  loadImage(node) {
+    let jsonData = node.getAttribute('data-imlazy'),
     windowWidth = window.innerWidth,
     nearest = null;
 
-    // Extracting `imlazy` data from data attribute.
-    let breakpoints = this.parseJson(imlazyData);
-    
+    // Extract `imlazy` data from data attribute.
+    let breakpoints = this.parseJson(jsonData);
+
     // Check if extraction process was successfull.
     if (breakpoints !== undefined) {
 
       // Find nearest breakpoint.
       for (var key in breakpoints) {
-        // As breakpoint was passed as string, we have to parse it to integer.
+        // Breakpoint was passed as string, parse it to integer.
         var breakpoint = parseInt(key, 10);
 
         if (breakpoint <= windowWidth) nearest = key;
       }
 
-      // Set image to elem object.
-      if (this.isImage(image)) {
-        image.setAttribute('src', breakpoints[nearest]);
-      } else {
-        image.style.backgroundImage = 'url('+ breakpoints[nearest] +')';
-      }
+      // Set image.
+      if (this.isImage(node)) {
+        node.setAttribute('src', breakpoints[nearest]);
 
-      // Add `is-loaded`
-      _classList.add(image, 'is-loaded');
+        node.onload = function(evt) {
+          // Place `is-loaded` class on node.
+          _classList.add(node, 'is-loaded');
+        };
+      } else {
+        node.style.backgroundImage = 'url('+ breakpoints[nearest] +')';
+
+        // Place `is-loaded` class on node.
+        _classList.add(node, 'is-loaded');
+      }
     }
   }
 
   /**
    * Check if element is in view.
-   * @param  {[obj]}  elem [javascript dom object].
+   * @param  {[obj]}  elem [Node obj.]
    * @return {Boolean}
    */
   isElemInView(elem) {
@@ -93,7 +98,7 @@ class Imlazy {
   /**
    * Parse JSON, if failes throw error messege to console.
    * @param  {[string]} string [JSON string].
-   * @return {[obj/arr]}       [Returns object or array].
+   * @return {[obj/arr]} [Returns object or array].
    */
   parseJson(string) {
     try {
