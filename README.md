@@ -4,20 +4,20 @@
 
 `imlazy.js` is a lightweight vanilla JS plugin to lazy load responsive images.
 
-## Usage
-imlazy.js has no dependencies, so all you'll have to do is include `.js` file and you'll be ready to go.
-
-1. Download `imlazy.pkgd.js` or `imlazy.pkgd.min.js` or install via npm `npm install imlazy.js`.
-2. Add imlazy `.js` file to your site.
-`<script src="/path/to/imlazy.pkgd.min.js"></script>`
-3. Alter your `img` or ***any other*** tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, for example `"600":`. Add specific class to your tags, this way you'll be able to easily control which images will be lazyloaded.
+## Install
+1. Download `imlazy.pkgd.js` or `imlazy.pkgd.min.js` or via npm `npm install imlazy.js`
+2. Add imlazy `.js` file to your site. `<script src="/path/to/imlazy.pkgd.min.js"></script>`
+3. Alter your `img` or any other tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, for example `"600":`. Add specific class to your tags, this way you'll be able to easily control which images will be lazyloaded.
 4. ***Optional:*** Add a placeholder image in the `src` attribute - to display something while the original image loads.
 5. Initialise imlazy.
 ```js
 window.addEventListener('load', function() {
-  new Imlazy();
+  new Imlazy({
+    preload: 1000 // Default 0 [optional]
+  });
 }, false);
 ```
+
 
 ## Examples
 `img` tag example:
@@ -35,6 +35,14 @@ If you would like to add a polyfill for users without enabled JavaScript, simply
   <img src="myimage.jpg" />
 </noscript>
 ```
+
+## Browser support
+Tested on desktop: Chrome, Safari, FF, Opera, IE9+
+
+##Changelog
+**v1.2.0**
+
+ - Added option `preload` to preload images or load on demand.
 
 ## Contributors
 Feel free to contribute in any way you can whether that be reporting issues, making suggestions or sending PRs.

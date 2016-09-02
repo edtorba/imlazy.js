@@ -16,7 +16,10 @@
     "imlazy.js",
     "imlazy",
     "images",
+    "image",
     "DOM",
+    "preload",
+    "on demand",
     "browser",
     "js"
   ],
