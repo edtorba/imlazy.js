@@ -1,3 +1,12 @@
+/*!
+ * Imlazy.js PACKAGED v1.2.1
+ * A lightweight vanilla JS plugin to lazy load images.
+ *
+ * Licensed MIT License (MIT)
+ *
+ * http://edtorba.com
+ * Copyright 2016 Eduards Torba
+ */
 function Imlazy(options) {
   // Defaults.
   this.defaults = {
@@ -232,16 +241,16 @@ window.Imlazy = Imlazy;
  */
 if (!('assign' in Object)) {
   Object.assign = function assign(target, source) { // eslint-disable-line no-unused-vars
-  	for (var index = 1, key, src; index < arguments.length; ++index) {
-  		src = arguments[index];
+    for (var index = 1, key, src; index < arguments.length; ++index) {
+      src = arguments[index];
 
-  		for (key in src) {
-  			if (Object.prototype.hasOwnProperty.call(src, key)) {
-  				target[key] = src[key];
-  			}
-  		}
-  	}
+      for (key in src) {
+        if (Object.prototype.hasOwnProperty.call(src, key)) {
+          target[key] = src[key];
+        }
+      }
+    }
 
-  	return target;
+    return target;
   };
 }

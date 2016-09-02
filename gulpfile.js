@@ -1,8 +1,14 @@
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var rimraf = require('gulp-rimraf');
+var fs = require('fs');
+var insert = require('gulp-insert');
 
 var filename = 'imlazy.pkgd';
+
+function getLicense() {
+  return fs.readFileSync('copyright.md');
+}
 
 
 
@@ -30,6 +36,7 @@ gulp.task( 'jshint', [ 'clean:js' ], function() {
   .pipe( rename(function(path) {
     path.basename = filename;
   }))
+  .pipe( insert.prepend( getLicense() ) )
   .pipe( gulp.dest( 'bin' ) )
 });
 
