@@ -112,7 +112,6 @@ proto.load = function(node) {
  * @return {boolean}
  */
 proto.isElementInView = function(elem, preload) {
-
   var rect = elem.getBoundingClientRect();
 
   if (this.defaults.preload) {
