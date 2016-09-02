@@ -1,6 +1,6 @@
 {
   "name": "imlazy.js",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A lightweight vanilla js plugin to lazy load images.",
   "main": "js/index.js",
   "scripts": {
