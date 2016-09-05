@@ -1,5 +1,5 @@
 /*!
- * Imlazy.js PACKAGED v1.2.1
+ * Imlazy.js PACKAGED v1.2.2
  * A lightweight vanilla JS plugin to lazy load images.
  *
  * Licensed MIT License (MIT)
@@ -31,6 +31,7 @@ function Imlazy(options) {
   // Event listeners.
   window.addEventListener('resize', this.run, false);
   window.addEventListener('scroll', this.run, false);
+  document.body.addEventListener('scroll', this.run, false);
 }
 
 var proto = Imlazy.prototype;

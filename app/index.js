@@ -22,6 +22,7 @@ function Imlazy(options) {
   // Event listeners.
   window.addEventListener('resize', this.run, false);
   window.addEventListener('scroll', this.run, false);
+  document.body.addEventListener('scroll', this.run, false);
 }
 
 var proto = Imlazy.prototype;
