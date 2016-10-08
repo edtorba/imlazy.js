@@ -1,5 +1,5 @@
 /*!
- * Imlazy.js PACKAGED v1.2.2
+ * Imlazy.js PACKAGED v1.2.3
  * A lightweight vanilla JS plugin to lazy load images.
  *
  * Licensed MIT License (MIT)

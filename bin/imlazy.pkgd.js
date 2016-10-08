@@ -1,5 +1,5 @@
 /*!
- * Imlazy.js PACKAGED v1.2.2
+ * Imlazy.js PACKAGED v1.2.3
  * A lightweight vanilla JS plugin to lazy load images.
  *
  * Licensed MIT License (MIT)
@@ -98,9 +98,9 @@ proto.load = function(node) {
       if (node.style.backgroundImage.slice(4, -1).replace(/"/g, "") !== breakpoints[nearestBreakpoint]) {
         var image = new Image();
         image.setAttribute('src', breakpoints[nearestBreakpoint]);
+        node.style.backgroundImage = 'url(' + breakpoints[nearestBreakpoint] + ')';
 
         image.onload = function(evt) {
-          node.style.backgroundImage = 'url(' + breakpoints[nearestBreakpoint] + ')';
 
           // Add `is-loaded` class.
           if (!_this.classlist.contains(node, 'is-loaded'))

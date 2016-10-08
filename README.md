@@ -7,7 +7,7 @@
 ## Install
 1. Download `imlazy.pkgd.js` or `imlazy.pkgd.min.js` or via npm `npm install imlazy.js`
 2. Add imlazy `.js` file to your site. `<script src="/path/to/imlazy.pkgd.min.js"></script>`
-3. Alter your `img` or any other tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, for example `"600":`. Add specific class to your tags, this way you'll be able to easily control which images will be lazyloaded.
+3. Alter your `img` or any other tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, for example `"600":`.
 4. ***Optional:*** Add a placeholder image in the `src` attribute - to display something while the original image loads.
 5. Initialise imlazy.
 ```js
@@ -36,13 +36,32 @@ If you would like to add a polyfill for users without enabled JavaScript, simply
 </noscript>
 ```
 
+
 ## Browser support
 Tested on desktop: Chrome, Safari, FF, Opera, IE9+
 
-##Changelog
-**v1.2.0**
 
- - Added option `preload` to preload images or load on demand.
+## Release Notes
+
+#### `v1.2.3`
+* Progressive loading of background images.
+
+#### `v1.2.2`
+* Added additional scroll listener to body tag.
+
+#### `v1.2.1`
+* Added copyright info into pkgd files.
+
+#### `v1.2.0`
+* Added option to preload images or load on demand.
+
+#### `v1.1.0`
+* Removed need for selector.
+* Added debounce for resize and scroll listeners.
+* Code refactoring.
+
+#### `v1.0.0`
+* Initial release.
 
 ## Contributors
 Feel free to contribute in any way you can whether that be reporting issues, making suggestions or sending PRs.
