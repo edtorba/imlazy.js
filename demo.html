@@ -26,8 +26,13 @@
   <script src="bin/imlazy.pkgd.js"></script>
   <script>
   window.addEventListener('load', function() {
-    new Imlazy({
+    var imlazy = new Imlazy({
       preload: 1000
+    });
+
+    imlazy.on('lazyload', function(response, target) {
+      console.log('Response: ', response.ok);
+      console.log('Target element: ', target);
     });
   }, false);
   </script>

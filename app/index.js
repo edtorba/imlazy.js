@@ -4,11 +4,11 @@ function Imlazy(options) {
     preload: 0
   };
 
+  // Initial properties.
+  this.events = {};
+
   // Override defaults with user specified options.
   this.defaults = Object.assign(this.defaults, options);
-
-  // Get images.
-  this.imageBucket = document.querySelectorAll('[data-imlazy]');
 
   // Bind `this` to `run` function.
   this.run = this.run.bind(this);
@@ -31,6 +31,9 @@ var proto = Imlazy.prototype;
  * Iterate through image bucket.
  */
 proto.run = function() {
+  // Get images.
+  this.imageBucket = document.querySelectorAll('[data-imlazy]');
+
   for (var i = 0, t = this.imageBucket.length; i < t; i++) {
     var image = this.imageBucket[i];
 
@@ -78,10 +81,16 @@ proto.load = function(node) {
           // Add `is-loaded` class.
           if (!_this.classlist.contains(node, 'is-loaded'))
             _this.classlist.add(node, 'is-loaded');
+
+          // Dispatch `lazyload ` event.
+          _this.dispatchEvent('lazyload', [ { ok: true }, node ]);
         };
 
         node.onerror = function(evt) {
           console.error('imlazy: Couldn\'t load ', breakpoints[nearestBreakpoint]);
+
+          // Dispatch `lazyload ` event.
+          _this.dispatchEvent('lazyload', [ { ok: false }, node ]);
         };
       }
     } else {
@@ -96,10 +105,16 @@ proto.load = function(node) {
           // Add `is-loaded` class.
           if (!_this.classlist.contains(node, 'is-loaded'))
             _this.classlist.add(node, 'is-loaded');
+
+            // Dispatch `lazyload ` event.
+            _this.dispatchEvent('lazyload', [ { ok: true }, node ]);
         };
 
         image.onerror = function(evt) {
           console.error('imlazy: Couldn\'t load ', breakpoints[nearestBreakpoint]);
+
+          // Dispatch `lazyload ` event.
+          _this.dispatchEvent('lazyload', [ { ok: false }, node ]);
         };
       }
     }
@@ -148,6 +163,53 @@ proto.parseJSON = function(string) {
   }
 };
 
+/**
+ * Bind event listener.
+ *
+ * @param  {string} name [String representing the event type to listen for.]
+ * @param  {function} listener [The object that receives a notification.]
+ * @return n/a
+ */
+proto.on = function(type, listener) {
+  if (this.events.hasOwnProperty(type)) {
+    this.events[type].push(listener);
+  } else {
+    this.events[type] = [listener];
+  }
+};
+
+/**
+ * Unbind event listener.
+ *
+ * @param  {string} name [String representing the event type to listen for.]
+ * @param  {function} listener [The object that receives a notification.]
+ * @return n/a
+ */
+proto.off = function(type, listener) {
+  if (!this.events.hasOwnProperty(type)) return;
+
+  var index = this.events[type].indexOf(listener);
+  if (index !== -1) this.events[type].splice(index, 1);
+};
+
+/**
+ * Dispatch the event.
+ *
+ * @param  {string} name [String representing the event type to listen for.]
+ * @param  {array} args [Adding custom data to be retured to listener.]
+ * @return n/a
+ */
+proto.dispatchEvent = function(type, args) {
+  if (!this.events.hasOwnProperty(type)) return;
+
+  if (!args || !args.length) args = [];
+
+  var events = this.events[type];
+  for (var i = 0, t = events.length; i < t; i++) {
+    events[i].apply(null, args);
+  }
+};
+
 proto.classlist = {
   /**
    * Add specified class values. If these classes already exist in attribute of
@@ -179,8 +241,8 @@ proto.classlist = {
    *
    * @example contains(elem, 'foo');
    *
-   * @param {obj} elem [DOM node.]
-   * @param {str} classnames [Class value.]
+   * @param {object} elem [DOM node.]
+   * @param {string} classnames [Class value.]
    */
   contains: function(elem, selector) {
     if (elem.classList) {

@@ -2,12 +2,12 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Latest Version](https://img.shields.io/github/release/edtorba/imlazy.js.svg?style=flat-square)](https://github.com/edtorba/imlazy.js/releases)
 
-`imlazy.js` is a lightweight vanilla JS plugin to lazy load responsive images.
+`imlazy.js` is a lightweight vanilla JS plugin to lazyload responsive images.
 
 ## Install
 1. Download `imlazy.pkgd.js` or `imlazy.pkgd.min.js` or via npm `npm install imlazy.js`
 2. Add imlazy `.js` file to your site. `<script src="/path/to/imlazy.pkgd.min.js"></script>`
-3. Alter your `img` or any other tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, for example `"600":`.
+3. Alter your `img` or any other tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, example `"600":`.
 4. ***Optional:*** Add a placeholder image in the `src` attribute - to display something while the original image loads.
 5. Initialise imlazy.
 ```js
@@ -36,12 +36,24 @@ If you would like to add a polyfill for users without enabled JavaScript, simply
 </noscript>
 ```
 
+## Lazyload event
+Triggered after an image has been loaded.
+
+```js
+imlazy.on('lazyload', function(response, target) {
+  console.log('Response: ', response.ok);
+  console.log('Target element: ', target);
+});
+```
+
 
 ## Browser support
 Tested on desktop: Chrome, Safari, FF, Opera, IE9+
 
 
 ## Release Notes
+#### `v1.3.0`
+* Added `lazyload` event - triggered after an images has been loaded.
 
 #### `v1.2.3`
 * Progressive loading of background images.
