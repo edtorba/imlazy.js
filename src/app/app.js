@@ -58,7 +58,6 @@ class Imlazy {
    * @param {HTMLElement} image [HTML element.]
    */
   load(image) {
-
     let jsonString = image.getAttribute('data-imlazy'),
     data;
 
@@ -162,7 +161,11 @@ class Imlazy {
     const top = element.getBoundingClientRect().top,
     bottom = element.getBoundingClientRect().bottom;
 
-    return top < document.documentElement.clientHeight && bottom >= 0;
+    if (this.config.offset) {
+      return bottom > 0 - this.defaults.preload && top < (document.documentElement.clientHeight + this.config.offset);
+    } else {
+      return bottom > 0 && top < document.documentElement.clientHeight;
+    }
   }
 
   /**
