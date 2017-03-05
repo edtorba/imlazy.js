@@ -2,7 +2,7 @@
   "name": "imlazy.js",
   "version": "2.0.0",
   "description": "Lightweigght vanilla js plugin to lazyload images.",
-  "main": "src/app/app.js",
+  "main": "src/app/imlazy.js",
   "repository": "https://github.com/edtorba/imlazy.js.git",
   "bugs": {
     "url": "https://github.com/edtorba/imlazy.js/issues"
@@ -21,8 +21,7 @@
     "DOM",
     "preload",
     "on demand",
-    "browser",
-    "js"
+    "browser"
   ],
   "scripts": {
     "build:dev": "webpack --config config/webpack.dev.js --progress --profile",
