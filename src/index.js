@@ -1,3 +1,5 @@
+import './shim/object.assign';
+
 // Globally unique identifiers.
 let GUID = 0;
 

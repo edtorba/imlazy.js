@@ -1,8 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-let extractCSS = new ExtractTextPlugin('[name].css');
 
 module.exports = {
   /*
@@ -10,9 +7,9 @@ module.exports = {
    *
    * See: http://webpack.github.io/docs/configuration.html#entry
    */
-  context: path.resolve(__dirname, '../src/css'),
+  context: path.resolve(__dirname, '../src'),
   entry: {
-    'style': './style.scss'
+    'imlazy': './index.js',
   },
 
   /**
@@ -23,7 +20,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../src/bin'),
     publicPath: '/bin/',
-    filename: '[name].css'
+    filename: '[name].pkgd.js'
   },
 
   /*
@@ -41,10 +38,17 @@ module.exports = {
     ],
     loaders: [
       {
-        test: /\.scss$/,
-        loader: extractCSS.extract(['css-loader!autoprefixer-loader?{browsers:["last 2 version"]}', 'sass-loader'])
-      },
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: 'es2015'
+        }
+      }
     ]
+  },
+  jshint: {
+    esversion: 6
   },
 
   /*
@@ -56,6 +60,5 @@ module.exports = {
     // Avoid publishing files when compilation fails
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.DedupePlugin(),
-    extractCSS
   ]
 };
