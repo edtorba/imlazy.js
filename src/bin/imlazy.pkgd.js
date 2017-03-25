@@ -94,7 +94,9 @@
 	      this.windowWidth = document.documentElement.clientWidth;
 	      this.imageList = document.querySelectorAll('[data-imlazy]');
 	
-	      this.imageList.forEach(function (image) {
+	      // As NodeList.forEach is not supported in IE, we'll use
+	      //  Array.prototype.forEach instead.
+	      [].forEach.call(this.imageList, function (image) {
 	        // Add GUID to imlazy images.
 	        image.imlazyGUID = _this.guid;
 	
@@ -115,7 +117,7 @@
 	
 	      this.windowWidth = document.documentElement.clientWidth;
 	
-	      this.imageList.forEach(function (image) {
+	      [].forEach.call(this.imageList, function (image) {
 	        if (_this2.isElementVisible(image)) _this2.load(image);
 	      });
 	    }
@@ -123,15 +125,15 @@
 	    /**
 	     * Load image on supplied element.
 	     *
-	     * @param {HTMLElement} image [HTML element.]
+	     * @param {HTMLElement} target [HTML element.]
 	     */
 	
 	  }, {
 	    key: 'load',
-	    value: function load(image) {
+	    value: function load(target) {
 	      var _this3 = this;
 	
-	      var jsonString = image.getAttribute('data-imlazy'),
+	      var jsonString = target.getAttribute('data-imlazy'),
 	          data = void 0;
 	
 	      try {
@@ -167,43 +169,43 @@
 	        }
 	      }
 	
-	      if (image instanceof HTMLImageElement) {
+	      if (target instanceof HTMLImageElement) {
 	        // Image.
 	
 	        // Ensure that we have not loaded same image previously.
-	        if (image.getAttribute('src') === imageURL) return;
-	        image.setAttribute('src', imageURL);
+	        if (target.getAttribute('src') === imageURL) return;
+	        target.setAttribute('src', imageURL);
 	
-	        image.onload = function (evt) {
-	          image.classList.add('is-loaded');
-	          _this3.dispatchEvent('lazyload', [evt, image]);
+	        target.onload = function (evt) {
+	          target.classList.add('is-loaded');
+	          _this3.dispatchEvent('lazyload', [evt, target]);
 	        };
 	
-	        image.onerror = function (evt) {
+	        target.onerror = function (evt) {
 	          console.error('[imlazy] A resource failed to load: %s', imageURL);
-	          _this3.dispatchEvent('lazyload', [evt, image]);
+	          _this3.dispatchEvent('lazyload', [evt, target]);
 	        };
 	      } else {
 	        // Other HTML element.
 	
 	        // Ensure that we have not loaded same image previously.
-	        if (image.style.backgroundImage.slice(4, -1).replace(/"/g, "") === imageURL) return;
+	        if (target.style.backgroundImage.slice(4, -1).replace(/"/g, "") === imageURL) return;
 	
 	        // Create fake image to use its `load` and `error` events.
-	        var fakeImage = new Image();
-	        fakeImage.setAttribute('src', imageURL);
+	        var image = new Image();
+	        image.setAttribute('src', imageURL);
 	
 	        // Place image on HTML element at the same time.
-	        image.style.backgroundImage = 'url(' + imageURL + ')';
+	        target.style.backgroundImage = 'url(' + imageURL + ')';
 	
-	        fakeImage.onload = function (evt) {
-	          image.classList.add('is-loaded');
-	          _this3.dispatchEvent('lazyload', [evt, image]);
+	        image.onload = function (evt) {
+	          target.classList.add('is-loaded');
+	          _this3.dispatchEvent('lazyload', [null, target]);
 	        };
 	
-	        fakeImage.onerror = function (evt) {
+	        image.onerror = function (evt) {
 	          console.error('[imlazy] A resource failed to load: %s', imageURL);
-	          _this3.dispatchEvent('lazyload', [evt, image]);
+	          _this3.dispatchEvent('lazyload', [null, target]);
 	        };
 	      }
 	    }
