@@ -79,7 +79,7 @@
 	    instances[this.guid] = this;
 	
 	    // Limit the rate at which a function can fire.
-	    this.onChange = this.debounce(this.onChange, 250);
+	    this.onChange = this.debounce(this.onChange, 100);
 	
 	    this.addEventListeners();
 	
@@ -154,17 +154,16 @@
 	      var imageURL = data[nearestBreakpoint];
 	
 	      if (this.config.retina) {
-	        var DPR = this.getDevicePixelRation();
 	        if (this.isHighDensity()) {
+	          var DPR = this.getDevicePixelRation();
+	          DPR = Math.round(DPR);
 	
-	          if (this.config.retina === 3) {
-	            if (DPR >= 3) {
-	              imageURL = this.setRetinaSuffix(imageURL, 3);
+	          if (DPR !== 1) {
+	            if (DPR > this.config.retina && typeof this.config.retina !== 'boolean') {
+	              imageURL = this.setRetinaSuffix(imageURL, this.config.retina);
 	            } else {
-	              imageURL = this.setRetinaSuffix(imageURL, 2);
+	              imageURL = this.setRetinaSuffix(imageURL, DPR);
 	            }
-	          } else {
-	            imageURL = this.setRetinaSuffix(imageURL, 2);
 	          }
 	        }
 	      }
