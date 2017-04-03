@@ -107,12 +107,12 @@ class Imlazy {
 
       target.onload = (evt) => {
         target.classList.add('is-loaded');
-        this.dispatchEvent('lazyload', [ evt, target ]);
+        this.dispatchEvent('loaded', [ evt, target ]);
       };
 
       target.onerror = (evt) => {
         console.error('[imlazy] A resource failed to load: %s', imageURL);
-        this.dispatchEvent('lazyload', [ evt, target ]);
+        this.dispatchEvent('loaded', [ evt, target ]);
       };
     } else {
       // Other HTML element.
@@ -129,12 +129,12 @@ class Imlazy {
 
       image.onload = (evt) => {
         target.classList.add('is-loaded');
-        this.dispatchEvent('lazyload', [ null, target ]);
+        this.dispatchEvent('loaded', [ null, target ]);
       };
 
       image.onerror = (evt) => {
         console.error('[imlazy] A resource failed to load: %s', imageURL);
-        this.dispatchEvent('lazyload', [ null, target ]);
+        this.dispatchEvent('loaded', [ null, target ]);
       };
     }
   }

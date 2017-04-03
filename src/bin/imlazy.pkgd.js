@@ -178,12 +178,12 @@
 	
 	        target.onload = function (evt) {
 	          target.classList.add('is-loaded');
-	          _this3.dispatchEvent('lazyload', [evt, target]);
+	          _this3.dispatchEvent('loaded', [evt, target]);
 	        };
 	
 	        target.onerror = function (evt) {
 	          console.error('[imlazy] A resource failed to load: %s', imageURL);
-	          _this3.dispatchEvent('lazyload', [evt, target]);
+	          _this3.dispatchEvent('loaded', [evt, target]);
 	        };
 	      } else {
 	        // Other HTML element.
@@ -200,12 +200,12 @@
 	
 	        image.onload = function (evt) {
 	          target.classList.add('is-loaded');
-	          _this3.dispatchEvent('lazyload', [null, target]);
+	          _this3.dispatchEvent('loaded', [null, target]);
 	        };
 	
 	        image.onerror = function (evt) {
 	          console.error('[imlazy] A resource failed to load: %s', imageURL);
-	          _this3.dispatchEvent('lazyload', [null, target]);
+	          _this3.dispatchEvent('loaded', [null, target]);
 	        };
 	      }
 	    }
