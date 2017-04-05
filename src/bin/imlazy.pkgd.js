@@ -81,14 +81,22 @@
 	    // Limit the rate at which a function can fire.
 	    this.onChange = this.debounce(this.onChange, 100);
 	
+	    // Register listeners.
 	    this.addEventListeners();
 	
-	    this.run();
+	    // Fetch imlazy DOM nodes.
+	    this.fetch();
 	  }
 	
+	  /**
+	   * Get imlazy DOM nodes, and lazyload images.
+	   * @return {void}
+	   */
+	
+	
 	  _createClass(Imlazy, [{
-	    key: 'run',
-	    value: function run() {
+	    key: 'fetch',
+	    value: function fetch() {
 	      var _this = this;
 	
 	      this.windowWidth = document.documentElement.clientWidth;
@@ -103,6 +111,12 @@
 	        if (_this.isElementVisible(image)) _this.load(image);
 	      });
 	    }
+	
+	    /**
+	     * Register event listeners.
+	     * @return {void}
+	     */
+	
 	  }, {
 	    key: 'addEventListeners',
 	    value: function addEventListeners() {
@@ -110,6 +124,13 @@
 	      window.addEventListener('scroll', this.onChange);
 	      document.body.addEventListener('scroll', this.onChange);
 	    }
+	
+	    /**
+	     * On change event listener, checks if images are in view and loads them if
+	     *  needed.
+	     * @return {void}
+	     */
+	
 	  }, {
 	    key: 'onChange',
 	    value: function onChange() {
@@ -126,6 +147,7 @@
 	     * Load image on supplied element.
 	     *
 	     * @param {HTMLElement} target [HTML element.]
+	     * @return {void}
 	     */
 	
 	  }, {
@@ -208,6 +230,14 @@
 	        };
 	      }
 	    }
+	
+	    /**
+	     * Add suffix to image url string.
+	     * @param {string} string [Image url.]
+	     * @param {string} value  [Suffix to add.]
+	     * @return {string} [String with suffix.]
+	     */
+	
 	  }, {
 	    key: 'setRetinaSuffix',
 	    value: function setRetinaSuffix(string, value) {
@@ -217,6 +247,7 @@
 	    /**
 	     * Detect high density screens.
 	     * @source http://stackoverflow.com/a/19690464
+	     * @return {void}
 	     */
 	
 	  }, {
@@ -271,6 +302,7 @@
 	     *
 	     * @param  {string} name [String representing the event type to listen for.]
 	     * @param  {function} listener [The object that receives a notification.]
+	     * @return {void}
 	     */
 	
 	  }, {
@@ -288,6 +320,7 @@
 	     *
 	     * @param  {string} name [String representing the event type to listen for.]
 	     * @param  {function} listener [The object that receives a notification.]
+	     * @return {void}
 	     */
 	
 	  }, {
@@ -304,6 +337,7 @@
 	     *
 	     * @param  {string} name [String representing the event type to listen for.]
 	     * @param  {array} args [Adding custom data to be retured to listener.]
+	     * @return {void}
 	     */
 	
 	  }, {
