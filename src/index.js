@@ -23,12 +23,18 @@ class Imlazy {
     // Limit the rate at which a function can fire.
     this.onChange = this.debounce(this.onChange, 100);
 
+    // Register listeners.
     this.addEventListeners();
 
-    this.run();
+    // Fetch imlazy DOM nodes.
+    this.fetch();
   }
 
-  run() {
+  /**
+   * Get imlazy DOM nodes, and lazyload images.
+   * @return {void}
+   */
+  fetch() {
     this.windowWidth = document.documentElement.clientWidth;
     this.imageList = document.querySelectorAll('[data-imlazy]');
 
@@ -42,12 +48,21 @@ class Imlazy {
     });
   }
 
+  /**
+   * Register event listeners.
+   * @return {void}
+   */
   addEventListeners() {
     window.addEventListener('resize', this.onChange);
     window.addEventListener('scroll', this.onChange);
     document.body.addEventListener('scroll', this.onChange);
   }
 
+  /**
+   * On change event listener, checks if images are in view and loads them if
+   *  needed.
+   * @return {void}
+   */
   onChange() {
     this.windowWidth = document.documentElement.clientWidth;
 
@@ -60,6 +75,7 @@ class Imlazy {
    * Load image on supplied element.
    *
    * @param {HTMLElement} target [HTML element.]
+   * @return {void}
    */
   load(target) {
     let jsonString = target.getAttribute('data-imlazy'),
@@ -138,6 +154,12 @@ class Imlazy {
     }
   }
 
+  /**
+   * Add suffix to image url string.
+   * @param {string} string [Image url.]
+   * @param {string} value  [Suffix to add.]
+   * @return {string} [String with suffix.]
+   */
   setRetinaSuffix(string, value) {
     return string.substring(0, string.lastIndexOf(".")) + '@' + value + 'x' + string.substring(string.lastIndexOf("."));
   }
@@ -145,6 +167,7 @@ class Imlazy {
   /**
    * Detect high density screens.
    * @source http://stackoverflow.com/a/19690464
+   * @return {void}
    */
   isHighDensity() {
     if (window.matchMedia) {
@@ -190,6 +213,7 @@ class Imlazy {
    *
    * @param  {string} name [String representing the event type to listen for.]
    * @param  {function} listener [The object that receives a notification.]
+   * @return {void}
    */
   on(type, listener) {
     if (this.events.hasOwnProperty(type)) {
@@ -204,6 +228,7 @@ class Imlazy {
    *
    * @param  {string} name [String representing the event type to listen for.]
    * @param  {function} listener [The object that receives a notification.]
+   * @return {void}
    */
   off(type, listener) {
     if (!this.events.hasOwnProperty(type)) return;
@@ -217,6 +242,7 @@ class Imlazy {
    *
    * @param  {string} name [String representing the event type to listen for.]
    * @param  {array} args [Adding custom data to be retured to listener.]
+   * @return {void}
    */
   dispatchEvent(type, args) {
     if (!this.events.hasOwnProperty(type)) return;
