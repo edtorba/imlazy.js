@@ -36,6 +36,7 @@ class Imlazy {
    */
   fetch() {
     this.windowWidth = document.documentElement.clientWidth;
+    this.windowHeight = document.documentElement.clientHeight;
     this.imageList = document.querySelectorAll('[data-imlazy]');
 
     // As NodeList.forEach is not supported in IE, we'll use
@@ -65,6 +66,7 @@ class Imlazy {
    */
   onChange() {
     this.windowWidth = document.documentElement.clientWidth;
+    this.windowHeight = document.documentElement.clientHeight;
 
     [].forEach.call(this.imageList, image => {
       if (this.isElementVisible(image)) this.load(image);
@@ -188,9 +190,9 @@ class Imlazy {
     bottom = element.getBoundingClientRect().bottom;
 
     if (this.config.offset) {
-      return bottom > (0 - this.config.offset) && top < (document.documentElement.clientHeight + this.config.offset);
+      return bottom > (0 - this.config.offset - this.windowHeight) && top < (this.windowHeight + this.config.offset);
     } else {
-      return bottom > 0 && top < document.documentElement.clientHeight;
+      return bottom > 0 && top < this.windowHeight;
     }
   }
 
