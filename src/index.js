@@ -190,7 +190,7 @@ class Imlazy {
     bottom = element.getBoundingClientRect().bottom;
 
     if (this.config.offset) {
-      return bottom > (0 - this.config.offset - this.windowHeight) && top < (this.windowHeight + this.config.offset);
+      return bottom > (0 - this.config.offset) && top < (this.windowHeight + this.config.offset);
     } else {
       return bottom > 0 && top < this.windowHeight;
     }
