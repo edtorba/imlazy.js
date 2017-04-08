@@ -91,7 +91,7 @@ imlzy.on('loaded', function(evt, target) {
 });
 ```
 
-**Note:** On all element apart from `img`, event is returned as `null`.
+**Note:** On all elements apart from `img`, event is returned as `null`.
 
 **Add event listener**
 ```js
