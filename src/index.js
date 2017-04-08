@@ -258,6 +258,29 @@ class Imlazy {
   }
 
   /**
+   * Detect when images have been loaded.
+   * @param  {nodelist} nodeList [NodeList.]
+   * @param  {Function} callback [Function triggered after all images have been loaded.]
+   * @return {void}
+   */
+  imagesLoaded(nodeList, callback) {
+    let imageCounter = 0;
+
+    this.on('loaded', function(evt, target) {
+      [].forEach.call(nodeList, node => {
+        if (node === target) {
+          imageCounter++;
+
+          if (nodeList.length === imageCounter) {
+            callback.apply(null, [nodeList]);
+            imageCounter = 0;
+          }
+        }
+      });
+    });
+  }
+
+  /**
    * Creates a debounced function that delays invoking func until after wait
    *  milliseconds have elapsed since the last time the debounced function was
    *  invoked.

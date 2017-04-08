@@ -3,7 +3,7 @@
   <head>
   <meta charset="UTF-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-  <title>Imlazy.js Documentation</title>
+  <title>Imlazy.js lightweight lazyload vanilla JS plugin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel='stylesheet' href='style.css' type='text/css' media='screen' />
 </head>
@@ -28,6 +28,10 @@
       <article>
         <h2 class="u-h3">Getting started</h2>
         <h3 class="u-h4"><strong>1.</strong> Download.</h3>
+        <strong>Download</strong>
+        <p>
+          <a href="https://unpkg.com/imlazy.js@2/bin/imlazy.pkgd.js">imlazy.pkgd.js</a>
+        </p>
         <strong>CDN</strong>
         <p>
           <pre><code class="language-html">&lt;script src=&quot;https://unpkg.com/imlazy.js@2/bin/imlazy.pkgd.js&quot;&gt;&lt;/script&gt;</code></pre>
@@ -71,10 +75,10 @@
           The distance in pixels out of the viewport, before which to start loading the images.
         </p>
         <pre><code class="language-js">offset: document.documentElement.clientHeight | 1000</code></pre>
-        <h2 class="u-h3">API</h2>
-        <h3 class="u-h4">Events</h3>
+        <h2 class="u-h3">Events</h2>
+        <h3 class="u-h4">Loaded</h3>
         <p>
-          <strong>Loaded</strong> Triggered after an image has been loaded.
+          Triggered after an image has been loaded.
         </p>
         <pre><code class="language-js">imlzy.on(&#39;loaded&#39;, function(evt, target) {
  console.log(&#39;Event: &#39;, evt);
@@ -83,6 +87,35 @@
         <p>
           <strong>Note:</strong> On all element apart from img, event is returned as <strong>null</strong>.
         </p>
+        <p>
+          <strong>Add event listener</strong>
+        </p>
+        <pre><code class="language-js">imlzy.on(&#x27;loaded&#x27;, callback);</code></pre>
+        <p>
+          <strong>Remove event listener</strong>
+        </p>
+        <pre><code class="language-js">imlzy.off(&#x27;loaded&#x27;, callback);</code></pre>
+        <h2 class="u-h3">API</h2>
+        <h3 class="u-h4">Fetch</h3>
+        <p>
+          Get imlazy DOM nodes, and lazyload images. Useful when images where dynamically added to document body.
+        </p>
+        <pre><code class="language-js">imlzy.fetch();</code></pre>
+        <h3 class="u-h4">Data</h3>
+        <p>
+          Get imlazy instance via it's element, usefull to access imlazy properties.
+        </p>
+<pre><code class="language-js">var yourImage = document.querySelector(&#x27;.yourImageClass&#x27;),
+imlzy = Imlazy.data(yourImage);</code></pre>
+        <h3 class="u-h4">imagesLoaded</h3>
+        <p>
+          Detect when specific images have been loaded.
+        </p>
+        <pre><code class="language-js">var myImages = document.querySelectorAll(&#x27;.js-myimages&#x27;);
+
+imlzy.imagesLoaded(myImages, function(nodeList) {
+  console.log(&#x27;My images loaded &#x27;, nodeList);
+});</code></pre>
       </article>
     </div><!-- .c-container -->
   </main><!-- .m-section -->
