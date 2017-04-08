@@ -120,7 +120,7 @@ var yourImage = document.querySelector('.yourImageClass'),
 imlzy = Imlazy.data(yourImage);
 ```
 
-#### imagesLoaded
+### imagesLoaded
 Detect when specific images have been loaded.
 
 ```js
