@@ -13,7 +13,7 @@ A lightweight vanilla JS plugin that lazyloads images and background images.
 
 **CDN**
 
-```js
+```html
 <script src="https://unpkg.com/imlazy.js@2/bin/imlazy.pkgd.js"></script>
 ```
 
