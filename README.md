@@ -31,7 +31,7 @@ yarn add imlazy.js
 
 #### 2. Include javascript file.
 
-```js
+```html
 <script src="/path/to/imlazy.pkgd.js"></script>
 ```
 
