@@ -1,4 +1,7 @@
 ## Changelog
+### `v2.0.3`
+* Readme update.
+
 ### `v2.0.2`
 * Readme update.
 * Added option to `data` method to provide either selector or node list.

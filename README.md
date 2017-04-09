@@ -126,7 +126,6 @@ imlzy = Imlazy.data(myImage);
 Or
 
 ```js
-var selector = document.querySelector('.selector'),
 imlzy = Imlazy.data('.selector');
 ```
 
