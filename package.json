@@ -1,8 +1,8 @@
 {
   "name": "imlazy.js",
   "version": "2.0.0",
-  "description": "Lightweight vanilla js plugin to lazyload images.",
-  "main": "src/index.js",
+  "description": "A lightweight vanilla JS plugin that lazyloads images and background images.",
+  "main": "src/bin/imlazy.pkgd.js",
   "repository": "https://github.com/edtorba/imlazy.js.git",
   "bugs": {
     "url": "https://github.com/edtorba/imlazy.js/issues"
@@ -25,7 +25,6 @@
     "build:prod": "webpack --config config/webpack.prod.js --progress --profile --bail",
     "build": "npm run build:dev",
     "start": "webpack --config config/webpack.dev.js --progress --profile --watch --content-base src/",
-    "test": "mocha --compilers js:babel-core/register test/*.js",
     "clean:bin": "rimraf src/bin",
     "clean": "rimraf node_modules src/bin"
   },
