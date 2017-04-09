@@ -12,12 +12,12 @@ IE10+, Edge, Chrome, FireFox, Opera, Safari
 ### 1. Download
 **Download**
 
-[imlazy.pkgd.js](https://unpkg.com/imlazy.js@2/bin/imlazy.pkgd.js)
+[imlazy.pkgd.js](https://unpkg.com/imlazy.js@2/src/bin/imlazy.pkgd.js)
 
 **CDN**
 
 ```html
-<script src="https://unpkg.com/imlazy.js@2/bin/imlazy.pkgd.js"></script>
+<script src="https://unpkg.com/imlazy.js@2/src/bin/imlazy.pkgd.js"></script>
 ```
 
 **Package managers**
@@ -135,7 +135,7 @@ imlzy.imagesLoaded(myImages, function(nodeList) {
 ```
 
 ## License
-[Here](LICENSE)
+[Here](LICENSE.md)
 
 ## Changelog
 [Here](CHANGELOG.md)
