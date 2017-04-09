@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <title>Demo | Imlazy.js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='style.css' type='text/css' media='screen' />
+  <style type="text/css">
+  .gap {
+    width: 100%;
+    height: 300vh;
+    line-height: 300vh;
+    text-align: center;
+  }
+  </style>
+</head>
+<body>
+
+  <main class="m-section">
+    <div class="c-container">
+
+      <img class="js-group-a js-group-b" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-imlazy='{ "100": "images/100x100.png", "600": "images/600x600.png", "900": "images/900x900.png" }' />
+      <div class="gap">300vh gap</div>
+      <img class="js-group-b" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-imlazy='{ "100": "images/100x100.png", "600": "images/600x600.png" }' />
+      <img class="js-group-b" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-imlazy='{ "100": "images/100x100.png" }' />
+      <div class="gap">300vh gap</div>
+      <div class="js-group-b" style="width: 300px; height: 300px; background-size: cover;" data-imlazy='{ "100": "images/100x100.png", "600": "images/600x600.png" }'></div>
+      <div class="gap">300vh gap</div>
+      <img class="js-group-a" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-imlazy='{ "100": "images/100x100.png", "900": "images/900x900.png" }' />
+
+    </div><!-- .c-container -->
+  </main><!-- .m-section -->
+
+  <script src="../src/bin/imlazy.pkgd.js"></script>
+  <script>
+  window.addEventListener('load', function() {
+    var imlzy = new Imlazy({
+      // offset: 500,
+      // retina: false
+    });
+
+    // Console output
+    imlzy.on('loaded', function(evt, target) {
+      console.log('---');
+      console.log(new Date());
+      console.log('Event: ', evt);
+      console.log('Target: ', target);
+    });
+
+
+    // Images loaded
+    var imagesA = document.querySelectorAll('.js-group-a'),
+    imagesB = document.querySelectorAll('.js-group-b');
+
+    imlzy.imagesLoaded(imagesA, function(nodeList) {
+      console.log('Group A loaded ', nodeList);
+    });
+
+    imlzy.imagesLoaded(imagesB, function(nodeList) {
+      console.log('Group B loaded ', nodeList);
+    });
+  }, false);
+  </script>
+</body>
+</html>

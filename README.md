@@ -1,82 +1,147 @@
-## Imlazy.js
+## imlazy.js
+A lightweight vanilla JS plugin that lazyloads images and background images.
+
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Latest Version](https://img.shields.io/github/release/edtorba/imlazy.js.svg?style=flat-square)](https://github.com/edtorba/imlazy.js/releases)
 
-`imlazy.js` is a lightweight vanilla JS plugin to lazyload responsive images.
+## Browser support
+IE10+, Edge, Chrome, FireFox, Opera, Safari
 
-## Install
-1. Download `imlazy.pkgd.js` or `imlazy.pkgd.min.js` or via npm `npm install imlazy.js`
-2. Add imlazy `.js` file to your site. `<script src="/path/to/imlazy.pkgd.min.js"></script>`
-3. Alter your `img` or any other tags, e.g. `div`. URL of the images with the breakpoints must be put into `data-imlazy` attribute. Options set in HTML must be valid **JSON**. Keys need to be quoted, example `"600":`.
-4. ***Optional:*** Add a placeholder image in the `src` attribute - to display something while the original image loads.
-5. Initialise imlazy.
+## Getting started
+
+### 1. Download
+**Download**
+
+[imlazy.pkgd.js](https://unpkg.com/imlazy.js@2/bin/imlazy.pkgd.js)
+
+**CDN**
+
+```html
+<script src="https://unpkg.com/imlazy.js@2/bin/imlazy.pkgd.js"></script>
+```
+
+**Package managers**
+
+```js
+npm install imlazy.js --save
+```
+
+OR
+
+```js
+yarn add imlazy.js
+```
+
+### 2. Include javascript file.
+
+```html
+<script src="/path/to/imlazy.pkgd.js"></script>
+```
+
+### 3. Initialise plugin.
+
 ```js
 window.addEventListener('load', function() {
-  new Imlazy({
-    preload: 1000 // Default 0 [optional]
+  var imlzy = new Imlazy({
+    offset: {integer} // Optional, default: document.documentElement.clientHeight
+    retina: {boolean/integer} // Optional, default: false
   });
 }, false);
 ```
 
+### 4. Alter your HTML code.
+Imlazy needs to be told what images to lazyload in first place, to do so simply add `data-imlazy` data attribute to your element.
 
-## Examples
-`img` tag example:
+**image**
+
 ```html
-<img src="placeholder.jpg" data-imlazy='{ "0": "images/100x100.png", "600": "images/600x600.png", "900": "images/900x900.png" }' />
-```
-`div` tag example:
-```html
-<div data-imlazy='{ "0": "images/100x100.png", "600": "images/600x600.png" }'></div>
+<img src="{placeholder}" data-imlazy='{ "0": "IMAGE_PATH.jpg", "YOUR_BREAKPOINT": "IMAGE_PATH.jpg", "900": "IMAGE_PATH.JPG" }' />
 ```
 
-If you would like to add a polyfill for users without enabled JavaScript, simply include the original image inside a `<noscript>` tag:
+**HTML Element**
 ```html
-<noscript>
-  <img src="myimage.jpg" />
-</noscript>
+<div data-imlazy='{ "0": "IMAGE_PATH.jpg", "YOUR_BREAKPOINT": "IMAGE_PATH.png" }'></div>
 ```
 
-## Lazyload event
+## Options
+
+### Retina
+Highest screen density you're willing to support. Plugin checks screen density, and based on results decides what suffix to add.
+
+```js
+retina: true
+```
+```js
+retina: {integer}
+```
+
+### Offset
+The distance in pixels out of the viewport, before which to start loading the images.
+
+```js
+offset: document.documentElement.clientHeight | 1000
+```
+
+## Events
+
+### Loaded
 Triggered after an image has been loaded.
 
 ```js
-imlazy.on('lazyload', function(response, target) {
-  console.log('Response: ', response.ok);
-  console.log('Target element: ', target);
+imlzy.on('loaded', function(evt, target) {
+ console.log('Event: ', evt);
+ console.log('Target: ', target);
 });
 ```
 
+**Note:** On all elements apart from `img`, event is returned as `null`.
 
-## Browser support
-Tested on desktop: Chrome, Safari, FF, Opera, IE9+
+**Add event listener**
+```js
+imlzy.on('loaded', callback);
+```
 
+**Remove event listener**
+```js
+imlzy.off('loaded', callback);
+```
 
-## Release Notes
-#### `v1.3.0`
-* Added `lazyload` event - triggered after an images has been loaded.
+## API
 
-#### `v1.2.3`
-* Progressive loading of background images.
+### Fetch
+Get imlazy DOM nodes, and lazyload images. Useful when images where dynamically added to document body.
 
-#### `v1.2.2`
-* Added additional scroll listener to body tag.
+```js
+imlzy.fetch();
+```
 
-#### `v1.2.1`
-* Added copyright info into pkgd files.
+### Data
+Get imlazy instance via it's element, usefull to access imlazy properties.
 
-#### `v1.2.0`
-* Added option to preload images or load on demand.
+```js
+var yourImage = document.querySelector('.yourImageClass'),
+imlzy = Imlazy.data(yourImage);
+```
 
-#### `v1.1.0`
-* Removed need for selector.
-* Added debounce for resize and scroll listeners.
-* Code refactoring.
+### imagesLoaded
+Detect when specific images have been loaded.
 
-#### `v1.0.0`
-* Initial release.
+```js
+var myImages = document.querySelectorAll('.js-myimages');
+
+imlzy.imagesLoaded(myImages, function(nodeList) {
+  console.log('My images loaded ', nodeList);
+});
+```
+
+## License
+[Here](LICENSE)
+
+## Changelog
+[Here](CHANGELOG.md)
 
 ## Contributors
 Feel free to contribute in any way you can whether that be reporting issues, making suggestions or sending PRs.
 
-## License
-MIT License (MIT).
+## Credits
+[edtorba](https://github.com/edtorba)
