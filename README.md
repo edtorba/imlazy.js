@@ -9,7 +9,7 @@ IE10+, Edge, Chrome, FireFox, Opera, Safari
 
 ## Getting started
 
-### 1. Download
+### 1. Download.
 **Download**
 
 [imlazy.pkgd.js](https://unpkg.com/imlazy.js@2/src/bin/imlazy.pkgd.js)
@@ -119,17 +119,32 @@ imlzy.fetch();
 Get imlazy instance via it's element, usefull to access imlazy properties.
 
 ```js
-var yourImage = document.querySelector('.yourImageClass'),
-imlzy = Imlazy.data(yourImage);
+var myImage = document.querySelector('.selector'),
+imlzy = Imlazy.data(myImage);
+```
+
+Or
+
+```js
+var selector = document.querySelector('.selector'),
+imlzy = Imlazy.data('.selector');
 ```
 
 ### imagesLoaded
 Detect when specific images have been loaded.
 
 ```js
-var myImages = document.querySelectorAll('.js-myimages');
+var myList = document.querySelectorAll('.selector');
 
-imlzy.imagesLoaded(myImages, function(nodeList) {
+imlzy.imagesLoaded(myList, function(nodeList) {
+  console.log('My images loaded ', nodeList);
+});
+```
+
+Or
+
+```js
+imlzy.imagesLoaded('.selector', function(nodeList) {
   console.log('My images loaded ', nodeList);
 });
 ```

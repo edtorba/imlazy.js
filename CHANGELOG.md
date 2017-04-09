@@ -1,4 +1,12 @@
 ## Changelog
+### `v2.0.2`
+* Readme update.
+* Added option to `data` method to provide either selector or node list.
+* Added option to `imagesLoaded` method to provide either selector or node list.
+
+### `v2.0.1`
+* Readme update.
+
 ### `v2.0.0`
 * Full rewrite in ES6.
 * `preload` renamed to `offset`.

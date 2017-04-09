@@ -109,15 +109,21 @@
         <p>
           Get imlazy instance via it's element, usefull to access imlazy properties.
         </p>
-<pre><code class="language-js">var yourImage = document.querySelector(&#x27;.yourImageClass&#x27;),
-imlzy = Imlazy.data(yourImage);</code></pre>
+<pre><code class="language-js">var myImage = document.querySelector(&#x27;.selector&#x27;),
+imlzy = Imlazy.data(myImage);</code></pre>
         <h3 class="u-h4">imagesLoaded</h3>
         <p>
           Detect when specific images have been loaded.
         </p>
-        <pre><code class="language-js">var myImages = document.querySelectorAll(&#x27;.js-myimages&#x27;);
+        <pre><code class="language-js">var myList = document.querySelectorAll(&#x27;.selector&#x27;);
 
-imlzy.imagesLoaded(myImages, function(nodeList) {
+imlzy.imagesLoaded(myList, function(nodeList) {
+  console.log(&#x27;My images loaded &#x27;, nodeList);
+});</code></pre>
+        <p>
+          Or
+        </p>
+        <pre><code class="language-js">imlzy.imagesLoaded('.selector', function(nodeList) {
   console.log(&#x27;My images loaded &#x27;, nodeList);
 });</code></pre>
       </article>

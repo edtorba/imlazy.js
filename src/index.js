@@ -183,7 +183,7 @@ class Imlazy {
   /**
    * Check whether element is in view.
    * @param  {HTMLElement}  element [DOM node.]
-   * @return {Boolean} [Test results.]
+   * @return {boolean} [Test results.]
    */
   isElementVisible(element) {
     const top = element.getBoundingClientRect().top,
@@ -259,20 +259,25 @@ class Imlazy {
 
   /**
    * Detect when images have been loaded.
-   * @param  {nodelist} nodeList [NodeList.]
+   * @param  {array, element, nodeList, string} element [Array, Element, NodeList, String.]
    * @param  {Function} callback [Function triggered after all images have been loaded.]
    * @return {void}
    */
-  imagesLoaded(nodeList, callback) {
+  imagesLoaded(element, callback) {
     let imageCounter = 0;
 
+    // Use element as selector string.
+    if (typeof element === 'string') {
+      element = document.querySelectorAll(element);
+    }
+
     this.on('loaded', function(evt, target) {
-      [].forEach.call(nodeList, node => {
+      [].forEach.call(element, node => {
         if (node === target) {
           imageCounter++;
 
-          if (nodeList.length === imageCounter) {
-            callback.apply(null, [nodeList]);
+          if (element.length === imageCounter) {
+            callback.apply(null, [element]);
             imageCounter = 0;
           }
         }
@@ -313,10 +318,15 @@ class Imlazy {
 /**
  * Get imlazy instance via it's element.
  *
- * @param {HTMLElement} element [HTML element.]
+ * @param {array, element, nodeList, string} element [Array, Element, NodeList, String.]
  * @return {Imlazy} [Imlazy instance.]
  */
 Imlazy.data = function(element) {
+  // Use element as selector string.
+  if (typeof element === 'string') {
+    element = document.querySelectorAll(element);
+  }
+
   // Make sure it's not empty.
   if (element !== null) {
     let id = element.imlazyGUID;
