@@ -1,6 +1,6 @@
 {
   "name": "imlazy.js",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A lightweight vanilla JS plugin that lazyloads images and background images.",
   "main": "src/bin/imlazy.pkgd.js",
   "repository": "https://github.com/edtorba/imlazy.js.git",
