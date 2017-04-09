@@ -4,6 +4,9 @@ A lightweight vanilla JS plugin that lazyloads images and background images.
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Latest Version](https://img.shields.io/github/release/edtorba/imlazy.js.svg?style=flat-square)](https://github.com/edtorba/imlazy.js/releases)
 
+## Browser support
+IE10+, Edge, Chrome, FireFox, Opera, Safari
+
 ## Getting started
 
 ### 1. Download
