@@ -4,7 +4,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Latest Version](https://img.shields.io/github/release/edtorba/imlazy.js.svg?style=flat-square)](https://github.com/edtorba/imlazy.js/releases)
 
-See the [Quick start](http://edtorba.github.io/imlazy.js/) for more details.
+See the [Quick start](http://edtorba.github.io/imlazy.js/#/quickstart) for more details.
 
 ## Documentation
 [Here](http://edtorba.github.io/imlazy.js/)

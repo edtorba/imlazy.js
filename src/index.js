@@ -318,13 +318,13 @@ class Imlazy {
 /**
  * Get imlazy instance via it's element.
  *
- * @param {array, element, nodeList, string} element [Array, Element, NodeList, String.]
+ * @param {element, string} element [Element, String.]
  * @return {Imlazy} [Imlazy instance.]
  */
 Imlazy.data = function(element) {
   // Use element as selector string.
   if (typeof element === 'string') {
-    element = document.querySelectorAll(element);
+    element = document.querySelector(element);
   }
 
   // Make sure it's not empty.

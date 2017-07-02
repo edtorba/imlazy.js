@@ -1,4 +1,8 @@
 # Changelog
+## v2.0.5
+* `data` method bug fix, changed `querySelectorAll` to `querySelector`.
+* Readme update.
+
 ## v2.0.4
 * New documentation.
 
